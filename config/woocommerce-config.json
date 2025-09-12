@@ -1,0 +1,161 @@
+{
+  "store_info": {
+    "name": "PMCell São Paulo",
+    "description": "Celulares, smartphones e acessórios com qualidade e garantia",
+    "email": "contato@pmcell.com.br",
+    "phone": "(11) 99999-9999",
+    "address": {
+      "street": "Avenida Paulista, 1578",
+      "city": "São Paulo",
+      "state": "SP",
+      "postcode": "01310-100",
+      "country": "BR"
+    }
+  },
+  "currency": {
+    "code": "BRL",
+    "position": "left_space",
+    "thousand_separator": ".",
+    "decimal_separator": ",",
+    "decimals": 2,
+    "symbol": "R$"
+  },
+  "shipping": {
+    "default_country": "BR",
+    "specific_countries": ["BR"],
+    "free_shipping_minimum": 199.00,
+    "additional_days": 2,
+    "handling_fee": 0.00,
+    "zones": [
+      {
+        "name": "Brasil",
+        "locations": [{"code": "BR", "type": "country"}],
+        "methods": [
+          {
+            "id": "melhor_envio",
+            "title": "Melhor Envio",
+            "enabled": true
+          },
+          {
+            "id": "local_pickup",
+            "title": "Retirar na Loja PMCell",
+            "cost": 0,
+            "enabled": true
+          }
+        ]
+      }
+    ]
+  },
+  "payment_gateways": {
+    "mercadopago_pix": {
+      "enabled": true,
+      "title": "PIX - Mercado Pago",
+      "description": "Pagamento instantâneo via PIX - Aprovação em até 5 minutos",
+      "expiration": 30
+    },
+    "mercadopago_credit": {
+      "enabled": true,
+      "title": "Cartão de Crédito - Mercado Pago",
+      "description": "Pague com cartão de crédito de forma segura",
+      "max_installments": 12,
+      "min_installment_value": 5
+    },
+    "mercadopago_ticket": {
+      "enabled": true,
+      "title": "Boleto Bancário - Mercado Pago",
+      "description": "Boleto bancário com vencimento configurável",
+      "due_date": 3
+    }
+  },
+  "tax": {
+    "calculate_taxes": true,
+    "prices_include_tax": true,
+    "tax_based_on": "billing",
+    "display_in_shop": "incl",
+    "display_in_cart": "incl"
+  },
+  "inventory": {
+    "manage_stock": true,
+    "low_stock_threshold": 5,
+    "no_stock_threshold": 0,
+    "out_of_stock_visibility": false
+  },
+  "checkout": {
+    "guest_checkout": true,
+    "force_ssl": true,
+    "privacy_policy": "Seus dados pessoais serão utilizados para processar seu pedido, dar suporte à sua experiência em nosso site e para outros propósitos descritos na nossa política de privacidade."
+  },
+  "email": {
+    "from_name": "PMCell São Paulo",
+    "from_address": "contato@pmcell.com.br",
+    "templates": {
+      "new_order": {
+        "enabled": true,
+        "subject": "Novo pedido PMCell #{order_number}",
+        "recipient": "admin@pmcell.com.br"
+      },
+      "customer_processing_order": {
+        "enabled": true,
+        "subject": "Seu pedido PMCell foi confirmado - #{order_number}"
+      },
+      "customer_completed_order": {
+        "enabled": true,
+        "subject": "Seu pedido PMCell foi entregue - #{order_number}"
+      }
+    }
+  },
+  "product_categories": [
+    {
+      "name": "Smartphones",
+      "slug": "smartphones",
+      "description": "Celulares e smartphones das melhores marcas"
+    },
+    {
+      "name": "Acessórios",
+      "slug": "acessorios",
+      "description": "Acessórios para celular"
+    },
+    {
+      "name": "Capinhas e Cases",
+      "slug": "capinhas",
+      "description": "Proteção para seu celular"
+    },
+    {
+      "name": "Carregadores",
+      "slug": "carregadores",
+      "description": "Carregadores e cabos"
+    },
+    {
+      "name": "Fones de Ouvido",
+      "slug": "fones",
+      "description": "Fones e acessórios de áudio"
+    },
+    {
+      "name": "Películas",
+      "slug": "peliculas",
+      "description": "Películas protetoras"
+    }
+  ],
+  "default_product_attributes": {
+    "weight_unit": "kg",
+    "dimension_unit": "cm",
+    "default_dimensions": {
+      "length": 20,
+      "width": 15,
+      "height": 5,
+      "weight": 0.3
+    }
+  },
+  "security": {
+    "force_ssl": true,
+    "disable_xmlrpc": true,
+    "limit_login_attempts": 5,
+    "enable_logs": true
+  },
+  "performance": {
+    "enable_cache": true,
+    "cache_timeout": 3600,
+    "optimize_images": true,
+    "lazy_load": true
+  }
+}

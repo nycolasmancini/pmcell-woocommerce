@@ -1,0 +1,105 @@
+# PMCell WooCommerce - Git Ignore
+
+# Arquivos de ambiente
+.env
+.env.local
+.env.production
+
+# Backups
+data/backup/*.sql
+data/backup/*.sql.gz
+data/backup/*.tar.gz
+data/backup/restore_*
+data/backup/preventive_*
+
+# Logs
+*.log
+logs/
+wp-content/debug.log
+wp-content/uploads/wc-logs/
+
+# WordPress core
+wp-admin/
+wp-includes/
+wp-content/index.php
+wp-content/languages/
+wp-content/plugins/index.php
+wp-content/themes/index.php
+
+# WordPress uploads
+wp-uploads/
+wp-content/uploads/
+
+# Plugins baixados (manter apenas os customizados)
+wp-content/plugins/woocommerce/
+wp-content/plugins/woocommerce-*/
+wp-content/plugins/melhor-envio*/
+wp-content/plugins/hello.php
+wp-content/plugins/akismet/
+
+# Temas padrão
+wp-content/themes/twenty*/
+
+# Configurações WordPress
+wp-config.php
+wp-config-*.php
+
+# Arquivos de banco de dados
+*.sql
+*.sql.gz
+
+# Cache
+wp-content/cache/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+
+# Sessões
+wp-content/uploads/woocommerce_sessions/
+
+# Temporary files
+*.tmp
+*.temp
+*~
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules (se usar)
+node_modules/
+npm-debug.log*
+
+# SSL certificates
+*.pem
+*.crt
+*.key
+
+# Mercado Pago logs
+mp_logs/
+
+# Melhor Envio cache
+me_cache/
+
+# WordPress maintenance mode
+.maintenance
+
+# htaccess backup
+.htaccess.bak
+
+# WP-CLI cache
+.wp-cli/cache/
+
+# Composer (se usar)
+/vendor/
+composer.lock
+
+# Reports gerados
+*-report-*.txt
+setup-report-*.txt
+backup_report_*.txt
+restore_report_*.txt

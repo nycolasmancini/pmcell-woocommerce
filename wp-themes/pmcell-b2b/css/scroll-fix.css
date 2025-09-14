@@ -1,0 +1,146 @@
+/*
+ * SCROLL FIX - Força Bruta
+ * Solução definitiva para problema de scroll bloqueado
+ * Version: 1.0 - Emergency Fix
+ */
+
+/* =============================================================================
+   FORÇA BRUTA - GARANTIR SCROLL FUNCIONANDO
+   ============================================================================= */
+
+/* Forçar scroll em TODOS os elementos principais */
+html, body {
+    overflow: visible !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    min-height: 100% !important;
+    max-height: none !important;
+    position: relative !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Garantir que containers não bloqueiem scroll */
+#page, 
+.site, 
+#primary, 
+#main, 
+.pmcell-shop-container,
+.content-area,
+.site-main {
+    overflow: visible !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    position: relative !important;
+}
+
+/* Desabilitar qualquer modal que esteja bloqueando */
+.modal, 
+#login-modal,
+.modal-backdrop,
+.overlay {
+    display: none !important;
+    position: absolute !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    visibility: hidden !important;
+    z-index: -9999 !important;
+    pointer-events: none !important;
+}
+
+/* Forçar visibility nos elementos principais */
+* {
+    max-height: none !important;
+}
+
+*:not(.modal):not(#login-modal):not(.modal-backdrop) {
+    position: static;
+}
+
+/* Remover qualquer transformação que possa estar bloqueando */
+body * {
+    transform: none;
+}
+
+/* Garantir que grid não interfira no scroll */
+.woocommerce ul.products {
+    overflow: visible !important;
+    height: auto !important;
+    min-height: auto !important;
+}
+
+/* Forçar elementos do WooCommerce a não bloquearem */
+.woocommerce,
+.woocommerce-page,
+.woocommerce-shop {
+    overflow: visible !important;
+    height: auto !important;
+    position: relative !important;
+}
+
+/* Reset de qualquer CSS problemático do tema pai */
+.ast-desktop .ast-container,
+.ast-mobile-header-wrap,
+.ast-main-header-wrap,
+div[class*="ast-"],
+div[id*="ast-"] {
+    overflow: visible !important;
+    height: auto !important;
+}
+
+/* =============================================================================
+   OVERRIDE ESPECÍFICOS PARA ELEMENTOS CONHECIDOS PROBLEMÁTICOS
+   ============================================================================= */
+
+/* Garantir que header/footer não interfiram */
+header,
+footer,
+.site-header,
+.site-footer {
+    position: relative !important;
+    height: auto !important;
+}
+
+/* Remover position fixed de elementos desnecessários */
+.whatsapp-float {
+    position: fixed !important; /* Este pode manter fixed */
+}
+
+/* Todos outros elementos fixed devem ser absolute */
+*:not(.whatsapp-float)[style*="position: fixed"] {
+    position: absolute !important;
+}
+
+/* =============================================================================
+   DEBUGGING - Destacar elementos problemáticos
+   ============================================================================= */
+
+/* Durante desenvolvimento - remover depois */
+/*
+[style*="height: 100%"],
+[style*="overflow: hidden"] {
+    border: 2px solid red !important;
+    background: rgba(255, 0, 0, 0.1) !important;
+}
+*/
+
+/* =============================================================================
+   MEDIA QUERIES - Garantir responsividade
+   ============================================================================= */
+
+@media (max-width: 768px) {
+    html, body {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+}
+
+@media (max-width: 480px) {
+    html, body {
+        overflow-y: auto !important;
+        height: auto !important;
+    }
+}

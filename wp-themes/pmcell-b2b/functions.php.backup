@@ -1,0 +1,467 @@
+<?php
+/**
+ * Funções do tema PMCell B2B
+ * 
+ * @package PMCell_B2B
+ */
+
+// Evita acesso direto
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+/**
+ * Configuração do tema
+ */
+function pmcell_b2b_setup() {
+    // Suporte a recursos do WordPress
+    add_theme_support('post-thumbnails');
+    add_theme_support('title-tag');
+    add_theme_support('custom-logo');
+    add_theme_support('html5', array(
+        'search-form',
+        'comment-form',
+        'comment-list',
+        'gallery',
+        'caption',
+    ));
+    
+    // Suporte ao WooCommerce
+    add_theme_support('woocommerce');
+    add_theme_support('wc-product-gallery-zoom');
+    add_theme_support('wc-product-gallery-lightbox');
+    add_theme_support('wc-product-gallery-slider');
+    
+    // Registrar menus
+    register_nav_menus(array(
+        'primary' => __('Menu Principal', 'pmcell-b2b'),
+        'footer' => __('Menu do Rodapé', 'pmcell-b2b'),
+        'account' => __('Menu da Conta', 'pmcell-b2b'),
+    ));
+    
+    // Tamanhos de imagem personalizados
+    add_image_size('product-thumb', 300, 300, true);
+    add_image_size('product-large', 600, 600, true);
+    add_image_size('hero-banner', 1200, 400, true);
+}
+add_action('after_setup_theme', 'pmcell_b2b_setup');
+
+/**
+ * Enqueue scripts e styles
+ */
+function pmcell_b2b_scripts() {
+    // Garantir que jQuery seja carregado primeiro
+    wp_enqueue_script('jquery');
+    
+    // CSS principal
+    wp_enqueue_style('pmcell-b2b-style', get_stylesheet_uri(), array(), '1.0.1');
+    
+    // CSS customizado para B2B
+    wp_enqueue_style('pmcell-b2b-custom', get_template_directory_uri() . '/css/custom.css', array(), '1.0.1');
+    
+    // CSS específico para header da shop
+    if (is_shop() || is_product_category() || is_product_tag() || is_product_taxonomy()) {
+        wp_enqueue_style('pmcell-shop-header', get_template_directory_uri() . '/css/shop-header.css', array(), '1.0.1');
+        wp_enqueue_script('pmcell-shop-search', get_template_directory_uri() . '/js/shop-search.js', array('jquery'), '1.0.1', true);
+    }
+    
+    // JavaScript personalizado - com dependência explícita do jQuery e carregado no footer
+    wp_enqueue_script('pmcell-b2b-script', get_template_directory_uri() . '/js/custom.js', array('jquery'), '1.0.1', true);
+    
+    // Localizar script para AJAX
+    wp_localize_script('pmcell-b2b-script', 'pmcell_ajax', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('pmcell_nonce')
+    ));
+    
+    // Localizar script para pesquisa da shop
+    if (is_shop() || is_product_category() || is_product_tag() || is_product_taxonomy()) {
+        wp_localize_script('pmcell-shop-search', 'pmcell_ajax', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('pmcell_search_nonce')
+        ));
+    }
+}
+add_action('wp_enqueue_scripts', 'pmcell_b2b_scripts');
+
+/**
+ * Registro de áreas de widgets
+ */
+function pmcell_b2b_widgets_init() {
+    register_sidebar(array(
+        'name' => __('Sidebar Principal', 'pmcell-b2b'),
+        'id' => 'sidebar-1',
+        'description' => __('Adicione widgets aqui.', 'pmcell-b2b'),
+        'before_widget' => '<section id="%1$s" class="widget %2$s">',
+        'after_widget' => '</section>',
+        'before_title' => '<h3 class="widget-title">',
+        'after_title' => '</h3>',
+    ));
+    
+    register_sidebar(array(
+        'name' => __('Área do Rodapé 1', 'pmcell-b2b'),
+        'id' => 'footer-1',
+        'description' => __('Primeira coluna do rodapé.', 'pmcell-b2b'),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget' => '</div>',
+        'before_title' => '<h4 class="widget-title">',
+        'after_title' => '</h4>',
+    ));
+    
+    register_sidebar(array(
+        'name' => __('Área do Rodapé 2', 'pmcell-b2b'),
+        'id' => 'footer-2',
+        'description' => __('Segunda coluna do rodapé.', 'pmcell-b2b'),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget' => '</div>',
+        'before_title' => '<h4 class="widget-title">',
+        'after_title' => '</h4>',
+    ));
+}
+add_action('widgets_init', 'pmcell_b2b_widgets_init');
+
+/**
+ * Customizações específicas para B2B
+ */
+
+// Adicionar campo de CNPJ no checkout
+add_action('woocommerce_after_checkout_billing_form', 'pmcell_add_cnpj_field');
+function pmcell_add_cnpj_field($checkout) {
+    woocommerce_form_field('billing_cnpj', array(
+        'type' => 'text',
+        'class' => array('form-row-wide'),
+        'label' => __('CNPJ', 'pmcell-b2b'),
+        'placeholder' => __('Digite seu CNPJ', 'pmcell-b2b'),
+        'required' => true,
+    ), $checkout->get_value('billing_cnpj'));
+}
+
+// Salvar campo CNPJ
+add_action('woocommerce_checkout_update_order_meta', 'pmcell_save_cnpj_field');
+function pmcell_save_cnpj_field($order_id) {
+    if (!empty($_POST['billing_cnpj'])) {
+        update_post_meta($order_id, 'billing_cnpj', sanitize_text_field($_POST['billing_cnpj']));
+    }
+}
+
+// Mostrar CNPJ no admin
+add_action('woocommerce_admin_order_data_after_billing_address', 'pmcell_display_cnpj_admin_order');
+function pmcell_display_cnpj_admin_order($order) {
+    $cnpj = get_post_meta($order->get_id(), 'billing_cnpj', true);
+    if ($cnpj) {
+        echo '<p><strong>' . __('CNPJ', 'pmcell-b2b') . ':</strong> ' . $cnpj . '</p>';
+    }
+}
+
+// Remover preços para usuários não logados
+add_action('init', 'pmcell_hide_prices_for_guests');
+function pmcell_hide_prices_for_guests() {
+    if (!is_user_logged_in() && !is_admin()) {
+        remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_price', 10);
+        remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
+        remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
+        
+        add_action('woocommerce_single_product_summary', 'pmcell_login_message', 30);
+    }
+}
+
+function pmcell_login_message() {
+    echo '<div class="login-required-message">';
+    echo '<p><strong>Faça login para ver preços e comprar</strong></p>';
+    echo '<a href="' . wp_login_url() . '" class="btn btn-primary">Fazer Login</a>';
+    echo '</div>';
+}
+
+// Quantidade mínima para produtos
+add_filter('woocommerce_quantity_input_args', 'pmcell_minimum_quantity', 10, 2);
+function pmcell_minimum_quantity($args, $product) {
+    $min_qty = get_post_meta($product->get_id(), '_min_qty', true);
+    if ($min_qty && $min_qty > 1) {
+        $args['min_value'] = $min_qty;
+        $args['input_value'] = $min_qty;
+    }
+    return $args;
+}
+
+// Adicionar campo de quantidade mínima no admin
+add_action('woocommerce_product_options_inventory_product_data', 'pmcell_add_min_qty_field');
+function pmcell_add_min_qty_field() {
+    woocommerce_wp_text_input(array(
+        'id' => '_min_qty',
+        'label' => __('Quantidade Mínima', 'pmcell-b2b'),
+        'placeholder' => '1',
+        'desc_tip' => true,
+        'description' => __('Quantidade mínima para compra.', 'pmcell-b2b'),
+        'type' => 'number',
+        'custom_attributes' => array(
+            'step' => '1',
+            'min' => '1'
+        )
+    ));
+}
+
+// Salvar quantidade mínima
+add_action('woocommerce_process_product_meta', 'pmcell_save_min_qty_field');
+function pmcell_save_min_qty_field($post_id) {
+    $min_qty = $_POST['_min_qty'];
+    if (!empty($min_qty)) {
+        update_post_meta($post_id, '_min_qty', esc_attr($min_qty));
+    }
+}
+
+/**
+ * Customizar carrinho para B2B
+ */
+add_filter('woocommerce_cart_item_price', 'pmcell_custom_cart_price', 10, 3);
+function pmcell_custom_cart_price($price, $cart_item, $cart_item_key) {
+    // Adicionar desconto por quantidade se aplicável
+    $product_id = $cart_item['product_id'];
+    $quantity = $cart_item['quantity'];
+    
+    // Exemplo de desconto escalonado
+    if ($quantity >= 100) {
+        $discount = 0.15; // 15% desconto
+    } elseif ($quantity >= 50) {
+        $discount = 0.10; // 10% desconto
+    } elseif ($quantity >= 20) {
+        $discount = 0.05; // 5% desconto
+    } else {
+        $discount = 0;
+    }
+    
+    if ($discount > 0) {
+        $original_price = $cart_item['data']->get_price();
+        $discounted_price = $original_price * (1 - $discount);
+        $cart_item['data']->set_price($discounted_price);
+    }
+    
+    return $price;
+}
+
+/**
+ * Adicionar informações extras no produto
+ */
+add_action('woocommerce_single_product_summary', 'pmcell_product_extra_info', 25);
+function pmcell_product_extra_info() {
+    global $product;
+    
+    // Mostrar quantidade mínima
+    $min_qty = get_post_meta($product->get_id(), '_min_qty', true);
+    if ($min_qty && $min_qty > 1) {
+        echo '<div class="min-quantity">Quantidade mínima: ' . $min_qty . ' unidades</div>';
+    }
+    
+    // Mostrar tabela de preços escalonados
+    echo '<div class="price-table-container">';
+    echo '<h4>Tabela de Preços por Quantidade</h4>';
+    echo '<table class="price-table">';
+    echo '<thead><tr><th>Quantidade</th><th>Preço Unitário</th><th>Desconto</th></tr></thead>';
+    echo '<tbody>';
+    echo '<tr><td>1-19</td><td>Preço normal</td><td>0%</td></tr>';
+    echo '<tr><td>20-49</td><td>5% desconto</td><td>5%</td></tr>';
+    echo '<tr><td>50-99</td><td>10% desconto</td><td>10%</td></tr>';
+    echo '<tr><td>100+</td><td>15% desconto</td><td>15%</td></tr>';
+    echo '</tbody>';
+    echo '</table>';
+    echo '</div>';
+}
+
+/**
+ * Funcionalidade AJAX para pesquisa da shop
+ */
+add_action('wp_ajax_pmcell_shop_search', 'pmcell_handle_shop_search');
+add_action('wp_ajax_nopriv_pmcell_shop_search', 'pmcell_handle_shop_search');
+
+function pmcell_handle_shop_search() {
+    // Verificar nonce para segurança
+    if (!wp_verify_nonce($_POST['nonce'], 'pmcell_search_nonce')) {
+        wp_die('Acesso negado');
+    }
+
+    $query = sanitize_text_field($_POST['query']);
+    $max_results = intval($_POST['max_results']) ?: 8;
+
+    if (empty($query) || strlen($query) < 2) {
+        wp_send_json_error('Query muito curta');
+        return;
+    }
+
+    // Configurar query de produtos
+    $args = array(
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'posts_per_page' => $max_results,
+        'meta_query' => array(
+            array(
+                'key' => '_stock_status',
+                'value' => 'instock',
+                'compare' => '='
+            )
+        ),
+        's' => $query
+    );
+
+    // Buscar também por categoria, tags e meta fields
+    $args['meta_query']['relation'] = 'OR';
+    $args['meta_query'][] = array(
+        'key' => '_sku',
+        'value' => $query,
+        'compare' => 'LIKE'
+    );
+
+    // Buscar por taxonomias
+    $tax_query = array(
+        'relation' => 'OR',
+        array(
+            'taxonomy' => 'product_cat',
+            'field' => 'name',
+            'terms' => $query,
+            'operator' => 'LIKE'
+        ),
+        array(
+            'taxonomy' => 'product_tag',
+            'field' => 'name',
+            'terms' => $query,
+            'operator' => 'LIKE'
+        )
+    );
+
+    $products_query = new WP_Query($args);
+    $tax_products = new WP_Query(array(
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'posts_per_page' => $max_results,
+        'tax_query' => $tax_query
+    ));
+
+    $results = array();
+    $processed_ids = array();
+
+    // Processar resultados da busca principal
+    if ($products_query->have_posts()) {
+        while ($products_query->have_posts()) {
+            $products_query->the_post();
+            $product_id = get_the_ID();
+            
+            if (!in_array($product_id, $processed_ids)) {
+                $results[] = pmcell_format_search_result($product_id);
+                $processed_ids[] = $product_id;
+            }
+        }
+        wp_reset_postdata();
+    }
+
+    // Processar resultados da busca por taxonomia (se ainda não temos resultados suficientes)
+    if (count($results) < $max_results && $tax_products->have_posts()) {
+        while ($tax_products->have_posts() && count($results) < $max_results) {
+            $tax_products->the_post();
+            $product_id = get_the_ID();
+            
+            if (!in_array($product_id, $processed_ids)) {
+                $results[] = pmcell_format_search_result($product_id);
+                $processed_ids[] = $product_id;
+            }
+        }
+        wp_reset_postdata();
+    }
+
+    wp_send_json_success($results);
+}
+
+function pmcell_format_search_result($product_id) {
+    $product = wc_get_product($product_id);
+    
+    if (!$product) {
+        return null;
+    }
+
+    // Obter imagem do produto
+    $image_id = $product->get_image_id();
+    $image_url = '';
+    if ($image_id) {
+        $image_url = wp_get_attachment_image_src($image_id, 'thumbnail')[0];
+    }
+
+    // Obter categorias
+    $categories = wp_get_post_terms($product_id, 'product_cat', array('fields' => 'names'));
+    $category_name = !empty($categories) ? $categories[0] : '';
+
+    // Obter preço formatado (só para usuários logados)
+    $price_html = '';
+    if (is_user_logged_in()) {
+        $price_html = $product->get_price_html();
+    }
+
+    return array(
+        'id' => $product_id,
+        'title' => $product->get_name(),
+        'url' => get_permalink($product_id),
+        'image' => $image_url,
+        'price' => $price_html,
+        'category' => $category_name,
+        'sku' => $product->get_sku(),
+        'in_stock' => $product->is_in_stock()
+    );
+}
+
+/**
+ * Personalizar mensagens do WooCommerce
+ */
+add_filter('gettext', 'pmcell_change_woocommerce_text', 20, 3);
+function pmcell_change_woocommerce_text($translated_text, $text, $domain) {
+    switch ($translated_text) {
+        case 'Add to cart':
+            $translated_text = __('Adicionar ao Pedido', 'pmcell-b2b');
+            break;
+        case 'Cart':
+            $translated_text = __('Pedido', 'pmcell-b2b');
+            break;
+        case 'Checkout':
+            $translated_text = __('Finalizar Pedido', 'pmcell-b2b');
+            break;
+    }
+    return $translated_text;
+}
+
+/**
+ * PMCELL Minimalist Theme Integration
+ */
+function pmcell_enqueue_minimalist_styles() {
+    wp_enqueue_style(
+        "pmcell-minimalist",
+        get_template_directory_uri() . "/css/minimalist-pmcell.css",
+        array(),
+        "1.0.0",
+        "all"
+    );
+    
+    wp_enqueue_style(
+        "inter-font",
+        "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+        array(),
+        null
+    );
+}
+add_action( "wp_enqueue_scripts", "pmcell_enqueue_minimalist_styles", 999 );
+
+/**
+ * Force remove border radius from all elements
+ */
+function pmcell_force_no_border_radius() {
+    echo "<style>
+        * { border-radius: 0 !important; }
+        .wp-block-button__link,
+        .wc-block-components-button,
+        .woocommerce .button,
+        .woocommerce input[type="submit"],
+        .woocommerce button,
+        input[type="submit"],
+        button,
+        .btn {
+            border-radius: 0 !important;
+            box-shadow: none !important;
+        }
+    </style>";
+}
+add_action( "wp_head", "pmcell_force_no_border_radius", 100 );
+?>

@@ -1,0 +1,555 @@
+/*
+ * Mobile Optimizations - PMCell B2B Theme
+ * Enhanced mobile experience with touch-friendly interactions
+ * Version: 2.0
+ */
+
+/* =============================================================================
+   MOBILE-FIRST RESPONSIVE BREAKPOINTS
+   ============================================================================= */
+
+:root {
+    /* Touch targets */
+    --touch-target-min: 44px;
+    --touch-target-comfortable: 48px;
+    
+    /* Mobile spacing adjustments */
+    --mobile-padding: var(--space-4);
+    --mobile-margin: var(--space-3);
+    
+    /* Mobile typography scale */
+    --mobile-text-xs: 11px;
+    --mobile-text-sm: 13px;
+    --mobile-text-base: 14px;
+    --mobile-text-lg: 16px;
+    --mobile-text-xl: 18px;
+    --mobile-text-2xl: 20px;
+    --mobile-text-3xl: 24px;
+}
+
+/* =============================================================================
+   MOBILE LAYOUT OPTIMIZATIONS
+   ============================================================================= */
+
+@media (max-width: 768px) {
+    body {
+        font-size: var(--mobile-text-base);
+        line-height: 1.5;
+    }
+    
+    /* Container adjustments */
+    .container {
+        padding-left: var(--mobile-padding);
+        padding-right: var(--mobile-padding);
+    }
+    
+    /* Typography scale for mobile */
+    h1 { font-size: var(--mobile-text-3xl); }
+    h2 { font-size: var(--mobile-text-2xl); }
+    h3 { font-size: var(--mobile-text-xl); }
+    h4 { font-size: var(--mobile-text-lg); }
+    h5 { font-size: var(--mobile-text-base); }
+    h6 { font-size: var(--mobile-text-sm); }
+}
+
+/* =============================================================================
+   TOUCH-FRIENDLY INTERACTIONS
+   ============================================================================= */
+
+/* Ensure all interactive elements meet minimum touch target size */
+@media (max-width: 768px) {
+    .btn,
+    button,
+    .button,
+    a[role="button"],
+    input[type="submit"],
+    input[type="button"] {
+        min-height: var(--touch-target-min);
+        min-width: var(--touch-target-min);
+        padding: var(--space-3) var(--space-4);
+    }
+    
+    /* Larger touch targets for primary actions */
+    .btn-primary,
+    .cart-link,
+    .search-submit {
+        min-height: var(--touch-target-comfortable);
+    }
+    
+    /* Form elements touch optimization */
+    input[type="text"],
+    input[type="email"],
+    input[type="search"],
+    input[type="password"],
+    input[type="tel"],
+    input[type="number"],
+    select,
+    textarea {
+        min-height: var(--touch-target-min);
+        font-size: var(--mobile-text-base); /* Prevent zoom on iOS */
+        padding: var(--space-3) var(--space-4);
+    }
+}
+
+/* =============================================================================
+   MOBILE NAVIGATION OPTIMIZATIONS
+   ============================================================================= */
+
+@media (max-width: 1024px) {
+    /* Mobile menu improvements */
+    .mobile-menu-toggle {
+        min-height: var(--touch-target-comfortable);
+        min-width: var(--touch-target-comfortable);
+        padding: var(--space-3);
+        border: none;
+        background: var(--pmcell-primary);
+        border-radius: var(--radius-md);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 3px;
+        cursor: pointer;
+        transition: all var(--transition-fast);
+        position: fixed;
+        top: var(--space-4);
+        right: var(--space-4);
+        z-index: var(--z-fixed);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .mobile-menu-toggle span {
+        width: 20px;
+        height: 2px;
+        background: white;
+        transition: all var(--transition-fast);
+        border-radius: 1px;
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+    
+    /* Mobile navigation overlay */
+    .mobile-nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: all var(--transition-normal);
+        z-index: var(--z-modal-backdrop);
+    }
+    
+    .mobile-nav-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    /* Mobile navigation menu */
+    .mobile-navigation {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 85%;
+        max-width: 400px;
+        height: 100vh;
+        background: var(--bg-primary);
+        transition: right var(--transition-normal);
+        z-index: var(--z-modal);
+        padding: var(--space-16) var(--space-6) var(--space-6);
+        overflow-y: auto;
+        box-shadow: var(--shadow-xl);
+    }
+    
+    .mobile-navigation.active {
+        right: 0;
+    }
+    
+    .mobile-navigation ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .mobile-navigation li {
+        margin-bottom: var(--space-2);
+    }
+    
+    .mobile-navigation a {
+        display: block;
+        padding: var(--space-4);
+        color: var(--text-primary);
+        text-decoration: none;
+        font-weight: var(--font-medium);
+        border-radius: var(--radius-md);
+        transition: all var(--transition-fast);
+        min-height: var(--touch-target-comfortable);
+        display: flex;
+        align-items: center;
+    }
+    
+    .mobile-navigation a:hover,
+    .mobile-navigation a:focus {
+        background: var(--bg-muted);
+        color: var(--pmcell-primary);
+    }
+}
+
+/* =============================================================================
+   MOBILE SEARCH OPTIMIZATIONS
+   ============================================================================= */
+
+@media (max-width: 768px) {
+    .shop-search-container {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .search-input-wrapper {
+        border-radius: var(--radius-lg);
+    }
+    
+    .search-field {
+        font-size: var(--mobile-text-base); /* Prevent zoom */
+        padding: var(--space-3) var(--space-4);
+    }
+    
+    .search-field::placeholder {
+        font-size: var(--mobile-text-sm);
+    }
+    
+    .search-submit {
+        padding: var(--space-3);
+        min-width: var(--touch-target-comfortable);
+    }
+    
+    /* Mobile search dropdown */
+    .search-dropdown {
+        left: var(--space-4);
+        right: var(--space-4);
+        width: auto;
+        max-height: 60vh;
+        border-radius: var(--radius-xl);
+    }
+    
+    .search-result-item {
+        padding: var(--space-4);
+        min-height: var(--touch-target-comfortable);
+    }
+}
+
+/* =============================================================================
+   MOBILE PRODUCT CARDS
+   ============================================================================= */
+
+@media (max-width: 768px) {
+    .woocommerce ul.products {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: var(--space-4);
+    }
+    
+    .woocommerce ul.products li.product {
+        border-radius: var(--radius-lg);
+    }
+    
+    .product-content {
+        padding: var(--space-4);
+        gap: var(--space-2);
+    }
+    
+    .woocommerce ul.products li.product .woocommerce-loop-product__title {
+        font-size: var(--mobile-text-base);
+        line-height: 1.3;
+        -webkit-line-clamp: 2;
+    }
+    
+    .woocommerce ul.products li.product .price {
+        font-size: var(--mobile-text-lg);
+        margin: var(--space-2) 0 var(--space-3) 0;
+    }
+    
+    .woocommerce ul.products li.product .button {
+        padding: var(--space-3);
+        font-size: var(--mobile-text-sm);
+        min-height: var(--touch-target-min);
+    }
+    
+    /* Simplified hover effects for mobile */
+    .woocommerce ul.products li.product:hover {
+        transform: translateY(-2px);
+    }
+}
+
+@media (max-width: 480px) {
+    .woocommerce ul.products {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-3);
+    }
+    
+    .product-content {
+        padding: var(--space-3);
+    }
+    
+    .woocommerce ul.products li.product .woocommerce-loop-product__title {
+        font-size: var(--mobile-text-sm);
+    }
+    
+    .woocommerce ul.products li.product .price {
+        font-size: var(--mobile-text-base);
+    }
+}
+
+/* =============================================================================
+   MOBILE FORM OPTIMIZATIONS
+   ============================================================================= */
+
+@media (max-width: 768px) {
+    .form-row,
+    .woocommerce-form-row {
+        margin-bottom: var(--space-4);
+    }
+    
+    .form-row.form-row-wide {
+        width: 100%;
+    }
+    
+    .form-row.form-row-first,
+    .form-row.form-row-last {
+        width: 100%;
+        margin-right: 0;
+    }
+    
+    /* Improve form field spacing on mobile */
+    .woocommerce form .form-row {
+        margin: 0 0 var(--space-4) 0;
+    }
+    
+    /* Larger checkboxes and radio buttons */
+    input[type="checkbox"],
+    input[type="radio"] {
+        width: 20px;
+        height: 20px;
+        margin-right: var(--space-2);
+    }
+    
+    label {
+        font-size: var(--mobile-text-base);
+        line-height: 1.4;
+    }
+}
+
+/* =============================================================================
+   MOBILE CART & CHECKOUT
+   ============================================================================= */
+
+@media (max-width: 768px) {
+    /* Cart table responsiveness */
+    .woocommerce-cart table.cart {
+        font-size: var(--mobile-text-sm);
+    }
+    
+    .woocommerce-cart table.cart th,
+    .woocommerce-cart table.cart td {
+        padding: var(--space-2);
+    }
+    
+    /* Hide less important columns on mobile */
+    .woocommerce-cart table.cart .product-thumbnail {
+        display: none;
+    }
+    
+    /* Stack cart actions */
+    .woocommerce-cart .actions {
+        flex-direction: column;
+        gap: var(--space-3);
+    }
+    
+    .woocommerce-cart .actions .button {
+        width: 100%;
+        min-height: var(--touch-target-comfortable);
+    }
+    
+    /* Mobile checkout improvements */
+    .woocommerce-checkout .col2-set .col-1,
+    .woocommerce-checkout .col2-set .col-2 {
+        width: 100%;
+        float: none;
+        margin-bottom: var(--space-6);
+    }
+}
+
+/* =============================================================================
+   MOBILE SPECIFIC UTILITIES
+   ============================================================================= */
+
+/* Hide on mobile */
+@media (max-width: 768px) {
+    .hide-mobile {
+        display: none !important;
+    }
+    
+    .show-mobile {
+        display: block !important;
+    }
+}
+
+/* Show only on mobile */
+@media (min-width: 769px) {
+    .mobile-only {
+        display: none !important;
+    }
+}
+
+/* =============================================================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   ============================================================================= */
+
+@media (max-width: 768px) {
+    /* Reduce motion for better performance */
+    .woocommerce ul.products li.product,
+    .card {
+        transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    
+    /* Optimize images for mobile */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* Reduce decorative elements on mobile */
+    .decorative-element {
+        display: none;
+    }
+}
+
+/* =============================================================================
+   MOBILE ACCESSIBILITY
+   ============================================================================= */
+
+@media (max-width: 768px) {
+    /* Larger focus indicators for touch */
+    *:focus {
+        outline-width: 3px;
+        outline-offset: 2px;
+    }
+    
+    /* Better contrast for mobile */
+    .btn-secondary {
+        border-width: 2px;
+    }
+    
+    /* Larger tap targets for accessibility */
+    .accessibility-enhanced .btn,
+    .accessibility-enhanced button,
+    .accessibility-enhanced .button {
+        min-height: 48px;
+        min-width: 48px;
+    }
+}
+
+/* =============================================================================
+   LANDSCAPE MOBILE OPTIMIZATIONS
+   ============================================================================= */
+
+@media (max-width: 768px) and (orientation: landscape) {
+    .shop-header-container {
+        padding: var(--space-2) var(--space-4);
+        min-height: 60px;
+    }
+    
+    .company-logo {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .company-name {
+        font-size: var(--mobile-text-lg);
+    }
+    
+    .search-field {
+        padding: var(--space-2) var(--space-3);
+    }
+}
+
+/* =============================================================================
+   iOS SAFARI SPECIFIC FIXES
+   ============================================================================= */
+
+/* Fix for iOS Safari viewport units */
+@supports (-webkit-touch-callout: none) {
+    .mobile-navigation {
+        height: -webkit-fill-available;
+    }
+}
+
+/* Prevent zoom on input focus */
+@media (max-width: 768px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="search"],
+    input[type="password"],
+    input[type="tel"],
+    input[type="number"],
+    select,
+    textarea {
+        font-size: 16px; /* Minimum font size to prevent zoom */
+    }
+}
+
+/* =============================================================================
+   PWA OPTIMIZATIONS
+   ============================================================================= */
+
+@media (display-mode: standalone) {
+    body {
+        padding-top: env(safe-area-inset-top);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+    
+    .shop-header {
+        padding-top: max(var(--space-4), env(safe-area-inset-top));
+    }
+}
+
+/* =============================================================================
+   PRINT STYLES FOR MOBILE
+   ============================================================================= */
+
+@media print {
+    .mobile-menu-toggle,
+    .search-dropdown,
+    .mobile-navigation,
+    .mobile-nav-overlay {
+        display: none !important;
+    }
+    
+    .shop-header-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: var(--space-2);
+    }
+    
+    .woocommerce ul.products {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-4);
+    }
+    
+    .woocommerce ul.products li.product .button {
+        display: none;
+    }
+}

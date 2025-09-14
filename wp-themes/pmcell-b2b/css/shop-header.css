@@ -1,0 +1,795 @@
+/**
+ * CSS Específico para Header da Shop PMCell
+ * Design: Header moderno, clean e responsivo
+ * Version: 2.0
+ */
+
+/* Header Principal da Shop - Design Fino */
+.shop-header {
+    background-color: #F9F9F9; /* Snow White from paleta.md */
+    color: #2D2D2D; /* Graphite Gray from paleta.md */
+    border-bottom: 1px solid #E6E6E6; /* Light Gray from paleta.md */
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+.shop-header-container {
+    max-width: var(--max-width-7xl);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(200px, auto) 1fr minmax(160px, auto);
+    gap: var(--space-4);
+    align-items: center;
+    padding: var(--space-2) var(--space-6);
+    min-height: 60px;
+}
+
+/* Seção de Branding (Logo + Nome) - Design Fino */
+.shop-branding {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-width: 0;
+}
+
+.logo-container {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.company-logo {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFFFFF;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 2px solid #E1452C; /* PMCell Primary from paleta.md */
+    transition: all var(--transition-fast);
+}
+
+.company-logo:hover {
+    transform: scale(1.02);
+    box-shadow: 0 2px 8px rgba(225, 69, 44, 0.15);
+}
+
+.logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.logo-placeholder {
+    background: linear-gradient(135deg, #E1452C, #C13317);
+}
+
+.logo-placeholder-icon {
+    font-size: 18px;
+    color: white;
+}
+
+.company-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+}
+
+.company-name {
+    font-size: 24px !important; /* Reduzido para melhor proporção com a logo */
+    font-weight: var(--font-bold);
+    color: #2D2D2D; /* Graphite Gray from paleta.md */
+    margin: 0;
+    line-height: 40px !important; /* Altura exata da logo */
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Barra de Pesquisa Central - Estilo Artsy */
+.shop-search-container {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.shop-search-form {
+    position: relative;
+    width: 100%;
+}
+
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #F5F5F5; /* Background mais suave como na referência */
+    border-radius: 50px !important; /* Totalmente arredondado - forçado */
+    border: 1px solid transparent !important; /* Borda transparente inicial para evitar salto */
+    transition: all 0.3s ease; /* Transição mais suave */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06); /* Sombra mais sutil */
+}
+
+.search-input-wrapper:focus-within {
+    background-color: #FFFFFF; /* Fundo branco no foco */
+    border-color: #E1452C !important; /* Apenas muda a cor da borda, sem adicionar nova */
+    box-shadow: 0 0 0 4px rgba(225, 69, 44, 0.1); /* Glow suave e único */
+    transform: scale(1.01); /* Efeito sutil de zoom para profundidade */
+    transition: all 0.3s ease; /* Mantém transição suave */
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: #5A5A5A; /* Medium Gray */
+    transition: color var(--transition-fast);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.search-input-wrapper:hover .search-icon {
+    color: #2D2D2D; /* Graphite Gray - mais escuro no hover */
+}
+
+.search-field {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 12px 20px 12px 48px !important; /* Ajustado para melhor espaçamento do ícone */
+    font-size: 14px;
+    color: #2D2D2D; /* Graphite Gray */
+    outline: none;
+    font-weight: 400;
+    min-width: 0;
+    border-radius: 50px !important; /* Forçar arredondamento */
+}
+
+.search-field::placeholder {
+    color: #5A5A5A; /* Medium Gray */
+    font-weight: 400;
+}
+
+/* Dropdown de Resultados de Pesquisa */
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #FFFFFF;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--gray-100);
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 9999;
+    margin-top: 0.5rem;
+}
+
+.search-results-container {
+    padding: 0;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--gray-100);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    gap: 1rem;
+}
+
+.search-result-item:hover {
+    background-color: var(--pmcell-primary-light);
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    background-color: var(--gray-100);
+}
+
+.search-result-info {
+    flex: 1;
+}
+
+.search-result-title {
+    font-weight: 500;
+    color: var(--gray-900);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.search-result-category {
+    font-size: 0.8rem;
+    color: var(--gray-600);
+    margin: 0;
+    margin-top: 0.25rem;
+}
+
+.search-result-price {
+    font-weight: 600;
+    color: var(--pmcell-primary);
+    font-size: 0.9rem;
+}
+
+/* Área do Usuário - Design Limpo */
+.shop-user-area {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+
+.btn-account,
+.btn-login {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 8px 16px;
+    background-color: transparent;
+    color: #5A5A5A; /* Medium Gray */
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    font-size: 14px;
+    transition: all var(--transition-fast);
+    border: 1px solid #E6E6E6; /* Light Gray */
+    white-space: nowrap;
+}
+
+.btn-account:hover,
+.btn-login:hover {
+    background-color: #F9F9F9; /* Snow White */
+    color: #2D2D2D; /* Graphite Gray */
+    border-color: #E1452C; /* PMCell Primary */
+}
+
+.user-icon {
+    width: 18px;
+    height: 18px;
+    color: currentColor;
+}
+
+/* Carrinho Moderno - Sem Background */
+.cart-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background-color: transparent;
+    color: #2D2D2D; /* Graphite Gray */
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.cart-link:hover {
+    background-color: rgba(225, 69, 44, 0.05); /* PMCell Primary muito suave */
+    color: #E1452C; /* PMCell Primary */
+}
+
+.cart-icon {
+    width: 22px;
+    height: 22px;
+    color: currentColor;
+}
+
+/* Badge do Carrinho - Totalmente Arredondado e Dinâmico */
+.cart-count {
+    background-color: #E1452C; /* PMCell Primary from paleta.md */
+    color: white;
+    border-radius: 20px !important; /* Pill shape totalmente arredondado */
+    padding: 0 8px !important; /* Padding horizontal aumentado para melhor proporção */
+    font-size: 11px;
+    font-weight: 600;
+    min-width: 22px !important; /* Largura mínima ajustada para novo padding */
+    height: 18px;
+    text-align: center;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    white-space: nowrap; /* Evita quebra de linha em números maiores */
+    transition: all 0.3s ease; /* Transição suave para updates */
+}
+
+/* Animação para atualização do badge */
+@keyframes cartBounce {
+    0%, 100% { 
+        transform: scale(1); 
+    }
+    50% { 
+        transform: scale(1.2); 
+        background-color: #C13317; /* Cor mais escura no pico da animação */
+    }
+}
+
+.cart-count.updating {
+    animation: cartBounce 0.3s ease;
+}
+
+/* Navegação da Shop (se houver) */
+.shop-navigation {
+    background-color: var(--gray-100);
+    border-top: 1px solid var(--gray-200);
+    padding: 0.75rem 0;
+}
+
+.shop-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+}
+
+.shop-menu li a {
+    color: var(--gray-700);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    transition: all 0.3s ease;
+}
+
+.shop-menu li a:hover,
+.shop-menu li.current-menu-item a {
+    color: var(--pmcell-primary);
+    background-color: var(--pmcell-primary-light);
+}
+
+/* Mobile Toggle */
+.shop-mobile-toggle {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: var(--pmcell-primary);
+    border: none;
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    z-index: 9999;
+    flex-direction: column;
+    gap: 3px;
+    cursor: pointer;
+}
+
+.shop-mobile-toggle span {
+    width: 20px;
+    height: 2px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+/* Estados de Loading para Pesquisa */
+.search-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    color: var(--gray-600);
+}
+
+.search-no-results {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    color: var(--gray-600);
+    font-style: italic;
+}
+
+/* Responsividade Header Fino */
+@media (max-width: 1200px) {
+    .shop-header-container {
+        grid-template-columns: minmax(180px, auto) 1fr minmax(140px, auto);
+        gap: var(--space-3);
+        padding: var(--space-2) var(--space-4);
+    }
+    
+    .shop-search-container {
+        max-width: 420px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .shop-header-container {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+        padding: var(--space-2) var(--space-4);
+        min-height: 100px; /* Aumentado para layout empilhado */
+        text-align: center;
+    }
+    
+    .shop-branding {
+        justify-content: center;
+        order: 1;
+    }
+    
+    .shop-search-container {
+        order: 2;
+        max-width: 100%;
+    }
+    
+    .shop-user-area {
+        order: 3;
+        justify-content: center;
+    }
+    
+    .company-name,
+    .company-location {
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .shop-header {
+        position: relative;
+    }
+    
+    .shop-header-container {
+        padding: var(--space-2);
+        gap: var(--space-2);
+        min-height: 90px;
+    }
+    
+    .company-logo {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .company-name {
+        font-size: 18px !important; /* Ajustado para melhor proporção mobile */
+        line-height: 36px !important; /* Altura da logo mobile */
+    }
+    
+    .search-field {
+        padding: 10px 16px 10px 40px !important; /* Ajustado espaçamento do ícone mobile */
+        font-size: 14px;
+        border-radius: 50px !important; /* Forçar arredondamento mobile */
+    }
+    
+    .search-icon {
+        left: 12px;
+        width: 16px;
+        height: 16px;
+    }
+    
+    .shop-navigation {
+        display: none;
+    }
+    
+    .shop-mobile-toggle {
+        display: flex;
+    }
+    
+    .btn-account,
+    .btn-login {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+    
+    .user-icon {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .cart-link {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .cart-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .shop-header-container {
+        padding: 8px;
+        gap: 8px;
+        min-height: 80px;
+    }
+    
+    .shop-branding {
+        gap: 8px;
+    }
+    
+    .company-logo {
+        width: 32px;
+        height: 32px;
+        border-width: 1px;
+    }
+    
+    .company-name {
+        font-size: 14px !important; /* Ajustado para melhor proporção mobile pequeno */
+        line-height: 32px !important; /* Altura da logo mobile small */
+    }
+    
+    .search-field {
+        padding: 8px 14px 8px 36px !important; /* Ajustado espaçamento do ícone mobile pequeno */
+        font-size: 13px;
+        border-radius: 50px !important; /* Forçar arredondamento mobile pequeno */
+    }
+    
+    .search-field::placeholder {
+        font-size: 13px;
+    }
+    
+    .search-icon {
+        left: 8px;
+        width: 14px;
+        height: 14px;
+    }
+    
+    .shop-user-area {
+        gap: 8px;
+    }
+    
+    .btn-account,
+    .btn-login {
+        padding: 4px 8px;
+        font-size: 12px;
+        min-height: 32px;
+    }
+    
+    .user-icon {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .cart-link {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .cart-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .cart-count {
+        min-width: 18px !important;
+        height: 16px;
+        font-size: 10px;
+        line-height: 16px;
+        padding: 0 6px !important;
+        border-radius: 16px !important; /* Mantém proporção arredondada */
+    }
+}
+
+/* Força específica para arredondamento da barra de pesquisa - simplificado */
+.shop-search-container .search-input-wrapper,
+.shop-search-container .search-field {
+    border-radius: 50px !important;
+}
+
+/* Hover state melhorado */
+.search-input-wrapper:hover {
+    background-color: #F0F0F0; /* Cor mais sutil */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+/* Transição suave ao sair do foco */
+.search-input-wrapper:not(:focus-within) {
+    transition: all 0.3s ease-out; /* Fade out suave */
+}
+
+/* Animações */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.search-dropdown {
+    animation: slideDown 0.3s ease;
+}
+
+/* Estilos para o container da shop */
+.pmcell-shop-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #FFFFFF;
+}
+
+.pmcell-shop-container .woocommerce-notices-wrapper {
+    margin-bottom: 2rem;
+}
+
+.pmcell-shop-container .woocommerce-breadcrumb {
+    background-color: var(--gray-100);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.pmcell-shop-container .woocommerce-result-count {
+    color: var(--gray-700);
+    font-weight: 500;
+}
+
+.pmcell-shop-container .woocommerce-ordering {
+    margin-bottom: 2rem;
+}
+
+/* Melhorias no grid de produtos */
+.pmcell-shop-container .woocommerce ul.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.pmcell-shop-container .woocommerce ul.products li.product {
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-100);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.pmcell-shop-container .woocommerce ul.products li.product:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-5px);
+    border-color: var(--pmcell-primary);
+}
+
+/* Melhorias na paginação */
+.pmcell-shop-container .woocommerce-pagination {
+    display: flex;
+    justify-content: center;
+    margin: 3rem 0;
+}
+
+.pmcell-shop-container .woocommerce-pagination ul.page-numbers {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pmcell-shop-container .woocommerce-pagination .page-numbers {
+    padding: 0.75rem 1rem;
+    background: var(--gray-100);
+    color: var(--gray-700);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.pmcell-shop-container .woocommerce-pagination .page-numbers:hover,
+.pmcell-shop-container .woocommerce-pagination .page-numbers.current {
+    background: var(--pmcell-primary);
+    color: white;
+    border-color: var(--pmcell-primary);
+}
+
+/* Filtros e ordenação */
+.woocommerce-shop-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1rem;
+    background: var(--gray-100);
+    border-radius: var(--radius-md);
+}
+
+/* Estados de carregamento para produtos */
+.product-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    background: var(--gray-100);
+    border-radius: var(--radius-lg);
+    margin: 1rem;
+}
+
+.product-loading::after {
+    content: '📱 Carregando produtos...';
+    color: var(--gray-600);
+    font-style: italic;
+}
+
+/* Acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .shop-header {
+        border-bottom: 3px solid var(--gray-900);
+    }
+    
+    .search-input-wrapper:focus-within {
+        border-color: var(--gray-900);
+    }
+}
+
+/* Responsividade adicional para container da shop */
+@media (max-width: 1200px) {
+    .pmcell-shop-container {
+        padding: 1.5rem;
+    }
+    
+    .pmcell-shop-container .woocommerce ul.products {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .pmcell-shop-container {
+        padding: 1rem;
+    }
+    
+    .pmcell-shop-container .woocommerce ul.products {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+    
+    .woocommerce-shop-controls {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .pmcell-shop-container .woocommerce-pagination ul.page-numbers {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .pmcell-shop-container .woocommerce ul.products {
+        grid-template-columns: 1fr;
+    }
+    
+    .pmcell-shop-container .woocommerce-pagination .page-numbers {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+}

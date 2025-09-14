@@ -1,0 +1,521 @@
+/*
+ * Micro-interactions & Subtle Animations
+ * PMCell B2B Theme - Enhanced UX
+ * Version: 2.0
+ */
+
+/* =============================================================================
+   SUBTLE ENTRANCE ANIMATIONS
+   ============================================================================= */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(225, 69, 44, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(225, 69, 44, 0.5);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+/* =============================================================================
+   BUTTON MICRO-INTERACTIONS
+   ============================================================================= */
+
+.btn,
+button,
+.button,
+.woocommerce .button {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before,
+button::before,
+.button::before,
+.woocommerce .button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: left 0.5s;
+}
+
+.btn:hover::before,
+button:hover::before,
+.button:hover::before,
+.woocommerce .button:hover::before {
+    left: 100%;
+}
+
+/* Button press effect */
+.btn:active,
+button:active,
+.button:active,
+.woocommerce .button:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+/* =============================================================================
+   FORM FIELD INTERACTIONS
+   ============================================================================= */
+
+.form-field-wrapper {
+    position: relative;
+}
+
+.form-field-wrapper input,
+.form-field-wrapper select,
+.form-field-wrapper textarea {
+    transition: all var(--transition-normal);
+}
+
+.form-field-wrapper input:focus,
+.form-field-wrapper select:focus,
+.form-field-wrapper textarea:focus {
+    transform: translateY(-1px);
+    box-shadow: 
+        0 0 0 3px rgba(225, 69, 44, 0.1),
+        var(--shadow-lg);
+}
+
+/* Floating labels effect */
+.floating-label {
+    position: relative;
+}
+
+.floating-label input,
+.floating-label textarea {
+    padding-top: calc(var(--space-4) + 8px);
+}
+
+.floating-label label {
+    position: absolute;
+    top: var(--space-4);
+    left: var(--space-4);
+    font-size: var(--text-base);
+    color: var(--text-muted);
+    pointer-events: none;
+    transition: all var(--transition-fast);
+    transform-origin: left top;
+}
+
+.floating-label input:focus + label,
+.floating-label input:not(:placeholder-shown) + label,
+.floating-label textarea:focus + label,
+.floating-label textarea:not(:placeholder-shown) + label {
+    transform: translateY(-12px) scale(0.8);
+    color: var(--pmcell-primary);
+    font-weight: var(--font-medium);
+}
+
+/* =============================================================================
+   CARD HOVER INTERACTIONS
+   ============================================================================= */
+
+.card,
+.woocommerce ul.products li.product {
+    transition: all var(--transition-normal);
+}
+
+.card::before,
+.woocommerce ul.products li.product::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(225, 69, 44, 0.05) 0%,
+        transparent 50%,
+        rgba(37, 99, 235, 0.05) 100%
+    );
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.card:hover::before,
+.woocommerce ul.products li.product:hover::before {
+    opacity: 1;
+}
+
+/* =============================================================================
+   SEARCH BAR INTERACTIONS
+   ============================================================================= */
+
+.search-input-wrapper {
+    position: relative;
+}
+
+/* Barra laranja inferior removida para visual mais clean */
+
+/* Efeito de levitação removido para evitar duplicação da borda */
+
+/* Search suggestions animation */
+.search-dropdown {
+    animation: fadeInUp 0.3s ease-out;
+    transform-origin: top center;
+}
+
+.search-result-item {
+    animation: slideInRight 0.3s ease-out;
+    animation-fill-mode: both;
+}
+
+.search-result-item:nth-child(1) { animation-delay: 0.05s; }
+.search-result-item:nth-child(2) { animation-delay: 0.1s; }
+.search-result-item:nth-child(3) { animation-delay: 0.15s; }
+.search-result-item:nth-child(4) { animation-delay: 0.2s; }
+.search-result-item:nth-child(5) { animation-delay: 0.25s; }
+
+/* =============================================================================
+   NAVIGATION INTERACTIONS
+   ============================================================================= */
+
+nav a,
+.menu a {
+    position: relative;
+}
+
+nav a::after,
+.menu a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--pmcell-primary);
+    transition: width var(--transition-fast);
+}
+
+nav a:hover::after,
+.menu a:hover::after {
+    width: 100%;
+}
+
+/* =============================================================================
+   LOADING STATES & FEEDBACK
+   ============================================================================= */
+
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-full);
+    border-top-color: var(--pmcell-primary);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-dots {
+    display: inline-flex;
+    gap: 4px;
+}
+
+.loading-dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: var(--pmcell-primary);
+    animation: bounce 1.4s ease-in-out infinite both;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+.loading-dots span:nth-child(3) { animation-delay: 0s; }
+
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* =============================================================================
+   SUCCESS/ERROR FEEDBACK ANIMATIONS
+   ============================================================================= */
+
+.toast,
+.notification {
+    animation: slideInRight 0.4s ease-out;
+}
+
+.toast.success {
+    animation: 
+        slideInRight 0.4s ease-out,
+        glow 2s ease-in-out 0.5s;
+}
+
+.toast.error {
+    animation: 
+        slideInRight 0.4s ease-out,
+        pulse 0.5s ease-in-out 0.3s;
+}
+
+/* =============================================================================
+   CART INTERACTIONS
+   ============================================================================= */
+
+.cart-link {
+    position: relative;
+}
+
+.cart-count {
+    animation: pulse 0.5s ease-in-out;
+}
+
+.cart-count.updated {
+    animation: 
+        pulse 0.3s ease-in-out,
+        glow 1s ease-in-out 0.3s;
+}
+
+/* Mini cart dropdown */
+.mini-cart-dropdown {
+    animation: fadeInScale 0.3s ease-out;
+    transform-origin: top right;
+}
+
+/* =============================================================================
+   PAGE ENTRANCE ANIMATIONS
+   ============================================================================= */
+
+.page-enter {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.stagger-children > * {
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-children > *:nth-child(n+6) { animation-delay: 0.6s; }
+
+/* =============================================================================
+   SCROLL INTERACTIONS
+   ============================================================================= */
+
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+}
+
+.scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Parallax effect for hero sections */
+.parallax-element {
+    transform: translateY(0);
+    transition: transform 0.1s ease-out;
+}
+
+/* =============================================================================
+   THEME TOGGLE INTERACTIONS
+   ============================================================================= */
+
+.theme-toggle {
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-toggle::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(
+        circle,
+        rgba(225, 69, 44, 0.2) 0%,
+        transparent 70%
+    );
+    border-radius: var(--radius-full);
+    transition: all 0.3s ease-out;
+    transform: translate(-50%, -50%);
+}
+
+.theme-toggle:hover::before {
+    width: 100px;
+    height: 100px;
+}
+
+/* =============================================================================
+   MOBILE SPECIFIC INTERACTIONS
+   ============================================================================= */
+
+@media (max-width: 768px) {
+    .mobile-touch-feedback:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease-out;
+    }
+    
+    .mobile-tap-highlight {
+        -webkit-tap-highlight-color: rgba(225, 69, 44, 0.2);
+    }
+}
+
+/* =============================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ============================================================================= */
+
+.focus-visible {
+    animation: glow 0.3s ease-out;
+}
+
+/* Skip to content link animation */
+.skip-link:focus {
+    animation: slideInRight 0.3s ease-out;
+}
+
+/* =============================================================================
+   REDUCED MOTION PREFERENCES
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .scroll-reveal {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* =============================================================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================================================= */
+
+.will-animate {
+    will-change: transform, opacity;
+}
+
+.no-longer-animating {
+    will-change: auto;
+}
+
+/* =============================================================================
+   UTILITY ANIMATION CLASSES
+   ============================================================================= */
+
+.animate-fade-in {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-slide-in {
+    animation: slideInRight 0.4s ease-out;
+}
+
+.animate-scale-in {
+    animation: fadeInScale 0.3s ease-out;
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+.animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+    background: linear-gradient(90deg, 
+        var(--bg-muted) 0%, 
+        var(--bg-primary) 50%, 
+        var(--bg-muted) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s ease-in-out infinite;
+}
+
+/* Delay classes */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }

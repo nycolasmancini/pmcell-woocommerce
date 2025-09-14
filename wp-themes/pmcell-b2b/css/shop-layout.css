@@ -1,0 +1,581 @@
+/*
+ * PMCell B2B - Shop Layout CSS
+ * Professional E-commerce Layout
+ * Version: 1.1.0
+ */
+
+/* =============================================================================
+   RESET AND BASE STYLES
+   ============================================================================= */
+
+/* Base styles */
+* {
+    box-sizing: border-box;
+}
+
+/* =============================================================================
+   LAYOUT STRUCTURE
+   ============================================================================= */
+
+.site {
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: visible !important;
+    height: auto !important;
+}
+
+.site-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 70px;
+}
+
+/* =============================================================================
+   LOGO AND BRANDING
+   ============================================================================= */
+
+.site-branding {
+    flex-shrink: 0;
+}
+
+.custom-logo {
+    height: 40px !important;
+    width: auto !important;
+    max-width: 200px;
+}
+
+/* =============================================================================
+   NAVIGATION
+   ============================================================================= */
+
+.main-navigation {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    margin: 0 40px;
+}
+
+#primary-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 30px;
+    align-items: center;
+}
+
+#primary-menu li {
+    margin: 0;
+}
+
+#primary-menu a {
+    text-decoration: none;
+    color: #374151;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 8px 12px;
+    transition: color 0.2s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+#primary-menu a:hover {
+    color: #FF6B5A;
+}
+
+/* =============================================================================
+   PÁGINA SHOP ESPECÍFICA
+   ============================================================================= */
+
+/* Container principal da shop */
+.pmcell-shop-container {
+    max-width: 1600px !important;
+    margin: 0 auto !important;
+    padding: 40px 20px !important;
+    overflow: visible !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+}
+
+.woocommerce-shop .site-content {
+    padding: 40px 0;
+    background: #f8f9fa;
+    min-height: calc(100vh - 200px);
+}
+
+.woocommerce-shop .woocommerce {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.woocommerce-page .site-main {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Breadcrumb e título */
+.woocommerce-breadcrumb {
+    margin-bottom: 30px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+}
+
+.woocommerce-breadcrumb a {
+    color: #666;
+    text-decoration: none;
+}
+
+.woocommerce-breadcrumb a:hover {
+    color: #E1452C;
+}
+
+.woocommerce-products-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px 0;
+}
+
+.woocommerce-products-header__title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Área de resultados e ordenação */
+.woocommerce-result-count {
+    float: left;
+    margin: 0 0 30px;
+    color: #666;
+    font-size: 14px;
+    line-height: 40px;
+}
+
+.woocommerce-ordering {
+    float: right;
+    margin: 0 0 30px;
+}
+
+.woocommerce-ordering select {
+    padding: 10px 40px 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    min-width: 200px;
+    color: #333;
+    cursor: pointer;
+}
+
+.woocommerce-ordering select:focus {
+    outline: none;
+    border-color: #E1452C;
+    box-shadow: 0 0 0 2px rgba(225, 69, 44, 0.1);
+}
+
+/* Clearfix para evitar problemas de layout */
+.woocommerce::before,
+.woocommerce::after {
+    content: "";
+    display: table;
+}
+
+.woocommerce::after {
+    clear: both;
+}
+
+/* Responsividade para elementos shop */
+@media (max-width: 768px) {
+    .pmcell-shop-container {
+        padding: 20px 15px;
+    }
+    
+    .woocommerce-products-header__title {
+        font-size: 36px;
+    }
+    
+    .woocommerce-result-count,
+    .woocommerce-ordering {
+        float: none;
+        text-align: center;
+        margin-bottom: 20px;
+        display: block;
+    }
+    
+    .woocommerce-ordering select {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* =============================================================================
+   USER AREA
+   ============================================================================= */
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.login-register .btn {
+    background: #000000;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.login-register .btn:hover {
+    opacity: 0.9;
+}
+
+.mini-cart .cart-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.cart-count {
+    background: #FF6B5A;
+    color: white;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* =============================================================================
+   MAIN CONTENT AREA
+   ============================================================================= */
+
+main {
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    width: 100%;
+}
+
+/* =============================================================================
+   SHOP PAGE HEADER
+   ============================================================================= */
+
+.shop-header {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.shop-header h1,
+.page-title,
+.entry-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 10px;
+    font-family: 'Inter', sans-serif;
+}
+
+/* =============================================================================
+   SHOP CONTROLS (Search, Sort, Filter)
+   ============================================================================= */
+
+.shop-controls,
+.woocommerce-ordering,
+.woocommerce-result-count {
+    margin-bottom: 30px;
+}
+
+.woocommerce-result-count {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0 0 20px 0;
+}
+
+.woocommerce-ordering {
+    margin: 0 0 30px 0;
+}
+
+.woocommerce-ordering select {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    background: white;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    min-width: 180px;
+}
+
+/* =============================================================================
+   PRODUCTS GRID
+   ============================================================================= */
+
+/* REMOVIDO - CSS agora gerenciado pelo modern-product-cards.css */
+/*
+.woocommerce ul.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+*/
+
+.woocommerce ul.products li.product {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.woocommerce ul.products li.product:hover {
+    border-color: #FF6B5A;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Product Image */
+.woocommerce ul.products li.product img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Product Content Area */
+.woocommerce ul.products li.product > a {
+    display: block;
+    text-decoration: none;
+}
+
+.woocommerce ul.products li.product .product-info {
+    padding: 20px;
+}
+
+.woocommerce ul.products li.product .woocommerce-loop-product__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+    font-family: 'Inter', sans-serif;
+}
+
+.woocommerce ul.products li.product .woocommerce-loop-product__title:hover {
+    color: #FF6B5A;
+}
+
+/* Product Price */
+.woocommerce ul.products li.product .price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #FF6B5A;
+    margin: 10px 0 15px 0;
+    font-family: 'Inter', sans-serif;
+    display: block;
+}
+
+.woocommerce ul.products li.product .price del {
+    color: #9ca3af;
+    font-weight: 400;
+    margin-right: 8px;
+}
+
+/* Add to Cart Button */
+.woocommerce ul.products li.product .button,
+.woocommerce ul.products li.product .add_to_cart_button {
+    width: calc(100% - 40px);
+    margin: 0 20px 20px 20px;
+    background: #000000;
+    color: #ffffff;
+    border: none;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: none;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+}
+
+.woocommerce ul.products li.product .button:hover,
+.woocommerce ul.products li.product .add_to_cart_button:hover {
+    background: #333333;
+    transform: translateY(-1px);
+}
+
+/* =============================================================================
+   MOBILE RESPONSIVENESS
+   ============================================================================= */
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        padding: 15px 20px;
+        min-height: auto;
+        gap: 20px;
+    }
+    
+    .main-navigation {
+        margin: 0;
+        order: 3;
+        width: 100%;
+    }
+    
+    #primary-menu {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .user-area {
+        order: 2;
+        justify-content: center;
+    }
+    
+    main {
+        padding: 20px 15px;
+    }
+    
+    .shop-header h1,
+    .page-title,
+    .entry-title {
+        font-size: 32px;
+    }
+    
+    .woocommerce ul.products {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .woocommerce ul.products li.product img {
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .woocommerce ul.products {
+        grid-template-columns: 1fr;
+    }
+    
+    .header-container {
+        padding: 10px 15px;
+    }
+    
+    #primary-menu {
+        gap: 10px;
+    }
+    
+    .shop-header h1,
+    .page-title,
+    .entry-title {
+        font-size: 28px;
+    }
+}
+
+/* =============================================================================
+   ADDITIONAL FIXES FOR CURRENT ISSUES
+   ============================================================================= */
+
+/* Fix body and overall layout - FORCE SCROLL */
+body {
+    font-family: 'Inter', sans-serif !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff;
+    overflow: visible !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    max-height: none !important;
+}
+
+html {
+    overflow: visible !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: 100% !important;
+    max-height: none !important;
+}
+
+/* Fix shop page specific issues */
+.woocommerce-shop main {
+    display: block;
+}
+
+.woocommerce-shop .entry-header {
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.woocommerce-shop .entry-title {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #111827;
+}
+
+/* Coming soon banner fix */
+.woocommerce-store-notice {
+    background: #FF6B5A;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.woocommerce-store-notice a {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Breadcrumb styling */
+.woocommerce-breadcrumb {
+    margin-bottom: 30px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.woocommerce-breadcrumb a {
+    color: #6b7280;
+    text-decoration: none;
+}
+
+.woocommerce-breadcrumb a:hover {
+    color: #FF6B5A;
+}

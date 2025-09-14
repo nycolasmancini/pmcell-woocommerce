@@ -1,0 +1,219 @@
+/*
+ * WooCommerce Override - PMCell B2B Theme
+ * Força nosso CSS grid customizado sobre o layout padrão do WooCommerce
+ * Version: 1.1 - Solução definitiva para cards pequenos + scroll funcionando
+ */
+
+/* =============================================================================
+   GARANTIR SCROLL FUNCIONANDO CORRETAMENTE
+   ============================================================================= */
+
+/* Forçar scroll do body para funcionar */
+body.woocommerce,
+body.woocommerce-page,
+html.woocommerce,
+html.woocommerce-page {
+    overflow: visible !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: 100vh;
+}
+
+/* CRÍTICO: Corrigir modais que bloqueiam scroll mesmo quando ocultos */
+.modal:not(.active) {
+    position: absolute !important;
+    height: auto !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+    z-index: -1 !important;
+}
+
+#login-modal:not(.active) {
+    display: none !important;
+    position: static !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* =============================================================================
+   OVERRIDE CRÍTICO DO WOOCOMMERCE LAYOUT
+   ============================================================================= */
+
+/* Remover interferência do layout flutuante do WooCommerce */
+.woocommerce ul.products li.product,
+.woocommerce-page ul.products li.product,
+body.woocommerce ul.products li.product,
+body.woocommerce-page ul.products li.product {
+    width: 100% !important;
+    float: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+    display: block !important;
+}
+
+/* Forçar grid layout sobre float layout */
+.woocommerce ul.products,
+.woocommerce-page ul.products,
+body.woocommerce ul.products,
+body.woocommerce-page ul.products {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)) !important;
+    gap: 30px !important;
+    list-style: none !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+    max-width: 1600px !important;
+    justify-content: center !important;
+    clear: both !important;
+    float: none !important;
+}
+
+/* Override específico para diferentes classes de colunas */
+.woocommerce ul.products.columns-1 li.product,
+.woocommerce ul.products.columns-2 li.product,
+.woocommerce ul.products.columns-3 li.product,
+.woocommerce ul.products.columns-4 li.product,
+.woocommerce ul.products.columns-5 li.product,
+.woocommerce ul.products.columns-6 li.product,
+.woocommerce-page ul.products.columns-1 li.product,
+.woocommerce-page ul.products.columns-2 li.product,
+.woocommerce-page ul.products.columns-3 li.product,
+.woocommerce-page ul.products.columns-4 li.product,
+.woocommerce-page ul.products.columns-5 li.product,
+.woocommerce-page ul.products.columns-6 li.product {
+    width: 100% !important;
+    float: none !important;
+    margin: 0 !important;
+}
+
+/* Override das classes de coluna no body */
+.woocommerce.columns-1 ul.products li.product,
+.woocommerce.columns-2 ul.products li.product,
+.woocommerce.columns-3 ul.products li.product,
+.woocommerce.columns-4 ul.products li.product,
+.woocommerce.columns-5 ul.products li.product,
+.woocommerce.columns-6 ul.products li.product,
+.woocommerce-page.columns-1 ul.products li.product,
+.woocommerce-page.columns-2 ul.products li.product,
+.woocommerce-page.columns-3 ul.products li.product,
+.woocommerce-page.columns-4 ul.products li.product,
+.woocommerce-page.columns-5 ul.products li.product,
+.woocommerce-page.columns-6 ul.products li.product {
+    width: 100% !important;
+    float: none !important;
+    margin: 0 !important;
+}
+
+/* Garantir que nossos cards customizados funcionem */
+.woocommerce ul.products li.pmcell-product-card,
+.woocommerce-page ul.products li.pmcell-product-card,
+body.woocommerce ul.products li.pmcell-product-card,
+body.woocommerce-page ul.products li.pmcell-product-card {
+    width: 100% !important;
+    max-width: 480px !important;
+    min-width: 380px !important;
+    margin: 0 auto !important;
+    float: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* =============================================================================
+   RESPONSIVIDADE DO OVERRIDE
+   ============================================================================= */
+
+@media (min-width: 768px) {
+    .woocommerce ul.products,
+    .woocommerce-page ul.products,
+    body.woocommerce ul.products,
+    body.woocommerce-page ul.products {
+        grid-template-columns: repeat(auto-fit, minmax(380px, 450px)) !important;
+        gap: 30px !important;
+        padding: 0 30px !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .woocommerce ul.products,
+    .woocommerce-page ul.products,
+    body.woocommerce ul.products,
+    body.woocommerce-page ul.products {
+        grid-template-columns: repeat(auto-fit, minmax(380px, 420px)) !important;
+        gap: 35px !important;
+        padding: 0 40px !important;
+    }
+}
+
+@media (min-width: 1400px) {
+    .woocommerce ul.products,
+    .woocommerce-page ul.products,
+    body.woocommerce ul.products,
+    body.woocommerce-page ul.products {
+        grid-template-columns: repeat(auto-fit, minmax(380px, 450px)) !important;
+        gap: 40px !important;
+        padding: 0 50px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .woocommerce ul.products,
+    .woocommerce-page ul.products,
+    body.woocommerce ul.products,
+    body.woocommerce-page ul.products {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        padding: 0 15px !important;
+        max-width: 450px !important;
+    }
+    
+    .woocommerce ul.products li.pmcell-product-card,
+    .woocommerce-page ul.products li.pmcell-product-card {
+        max-width: 100% !important;
+        min-width: auto !important;
+    }
+}
+
+/* =============================================================================
+   CLEARFIX E CLEANUP
+   ============================================================================= */
+
+/* Remover pseudo-elementos de clearfix que podem interferir */
+.woocommerce ul.products::before,
+.woocommerce ul.products::after,
+.woocommerce-page ul.products::before,
+.woocommerce-page ul.products::after {
+    display: none !important;
+}
+
+/* Remover classes first/last que quebram o grid */
+.woocommerce ul.products li.first,
+.woocommerce ul.products li.last,
+.woocommerce-page ul.products li.first,
+.woocommerce-page ul.products li.last {
+    clear: none !important;
+    margin: 0 !important;
+}
+
+/* =============================================================================
+   FALLBACK PARA NAVEGADORES ANTIGOS
+   ============================================================================= */
+
+/* Fallback para navegadores que não suportam CSS Grid */
+@supports not (display: grid) {
+    .woocommerce ul.products,
+    .woocommerce-page ul.products {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+    }
+    
+    .woocommerce ul.products li.pmcell-product-card,
+    .woocommerce-page ul.products li.pmcell-product-card {
+        width: 380px !important;
+        max-width: 480px !important;
+        margin: 15px !important;
+        display: inline-block !important;
+        vertical-align: top !important;
+    }
+}
